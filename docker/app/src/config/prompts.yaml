@@ -1,0 +1,78 @@
+system:
+  developer_role: |
+    You are an experianced developer tasked with developing a python function. 
+    Broadly, you will take part in an iterative process of planning, development, and review.
+    Incorporate python best practices and follow PEP8. Keep modularity, readability, and testability in mind.
+
+development:
+  dev_plan:
+    base: |
+      Create a high level development plan for the following function guidelines:
+      {guidelines}
+      Avoid writing code or tests. Your task is only to write the step by step plan to implement this function.
+    subfunction_mapping: |
+      In addition, write the plan such that each step maps to a subfunction/helper function that can be developed in isolation. Include the name, purpose, and function signature. Plan the subfunctions with modularity in mind.
+
+  subfunction_dev_plan: |
+    Given the following function guidelines:
+    {guidelines}
+    Your task is to create a development plan for a sequence of subfunctions that will cumalate to create the main function.
+    Avoid writing code or tests. Keep it high level.
+    The following subfunctions are available to be reused if relevant:
+    {reusable_candidates}
+    ###
+    Could the function you are designing make use of any of the above functions?
+    Should you reuse a function, include in the plan and specify it as reusable: true and provide its import path.
+    Design your plan such that the subfunctions are modular, testable, and follow DRY standards.
+
+  code_generation: |
+    Write a python function given the following guidelines:
+    {guidelines}
+    and the following step by step development plan:
+    {steps_str}
+    Avoid commentary and return only code.
+
+review:
+  code_review: |
+    The following code was written given these guidelines:
+    {guidelines}
+    Code:
+    {code}
+    Your task is to review the code and evaluate whether it needs revision. 
+    Check for correctness and whether the requirements were met.
+    Avoid being pedantic.
+    If it needs revision, return corrected code.
+
+  reusability_review: |
+    You have been assigned to develop a function with the following guidelines:
+    {guidelines}
+    You will first review if any existing function in our codebase can meet these requirements, so as to avoid duplicate effort.
+    Here are the following candidates:
+    ###
+    {candidates}
+    ###
+    Your task is to evaluate whether any of the above functions can be reused and whether new development is needed.
+    If one of the functions fulfills the requirements for the provided guidelines, we can judge it reusable. In this case return its import path.
+    Otherwise, if no function can meet the provided requirements, we conclude nothing can be reused.
+    Can any of these functions be reused?
+
+combination:
+  combine_code: |
+    Given the following sequence of developed functions:
+    {generated}
+    {reusable}
+    ###
+    Your task is to combine them to create a function meeting the follwing guideline requirements:
+    {guidelines}
+    In addition, these notes should help you combine the functions. Note some function names may have changed:
+    {combination_notes}
+    Additionally, note this function will be triggered as an action or probe in the chaos toolkit framework.
+    The arguments will therefor pass through a yaml template, so ensure the input args are yaml types.
+    Include sample executions for both python and a yaml chaos toolkit experiment snippet.
+
+summarization:
+  function_summary: |
+    Your task is to provide a short concise summary of the {lang} function provided along with the name of the function and a list of arguments.
+
+    Function
+    {func_json}
